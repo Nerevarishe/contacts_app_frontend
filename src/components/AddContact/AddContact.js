@@ -25,22 +25,27 @@ class AddContact extends Component {
     render() {
         return (
             <div>
-                <input
-                    onChange={(event) => this.setState({fullName: event.target.value})}
-                    type="text"
-                    placeholder="Full Name"
-                />
-                <input
-                    onChange={(event) => this.setState({phone: event.target.value})}
-                    type="text"
-                    placeholder="Phone"
-                />
-                <input
-                    onChange={(event) => this.setState({email: event.target.value})}
-                    type="text"
-                    placeholder="E-mail"
-                />
-                <button onClick={this.addContactHandler}>Add Contact</button>
+                <form className='form-inline' action="/">
+                    <input
+                        className='form-control'
+                        onChange={(event) => this.setState({fullName: event.target.value})}
+                        type="text"
+                        placeholder="Full Name"
+                    />
+                    <input
+                        className='form-control'
+                        onChange={(event) => this.setState({phone: event.target.value})}
+                        type="text"
+                        placeholder="Phone"
+                    />
+                    <input
+                        className='form-control'
+                        onChange={(event) => this.setState({email: event.target.value})}
+                        type="text"
+                        placeholder="E-mail"
+                    />
+                    <button className='btn btn-primary' onClick={this.addContactHandler}>Add Contact</button>
+                </form>
             </div>
         );
     }

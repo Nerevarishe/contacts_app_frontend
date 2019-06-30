@@ -10,7 +10,11 @@ class Layout extends Component {
                     {this.props.children}
                 </NavigationBar>
                 <hr/>
-                <ContactsApp />
+                <div className="row">
+                    <div className='col'>
+                        <ContactsApp />
+                    </div>
+                </div>
             </div>
         );
     }

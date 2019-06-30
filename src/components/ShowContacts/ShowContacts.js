@@ -4,7 +4,7 @@ import OptionsButtons from '../OptionsButtons/OptionsButtons';
 const showContacts = (props) => {
     return (
         <div>
-            <table>
+            <table className='table table-striped'>
                 <thead>
                 <tr>
                     <th>Full Name</th>

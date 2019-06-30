@@ -3,10 +3,12 @@ import SearchBar from '../../../SearchBar/SearchBar';
 
 const navigationItem = () => (
     <React.Fragment>
-        <li>
+        <li className='nav-item'>
             <SearchBar />
         </li>
-        <li>Login/Logout</li>
+        <li className='nav-item'>
+            <a className='nav-link' href="/">Login/Logout</a>
+        </li>
     </React.Fragment>
 )
 

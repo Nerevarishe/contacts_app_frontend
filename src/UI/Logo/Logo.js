@@ -5,4 +5,4 @@ const logo = () => (
         <img src={logoImage} alt="logo"/>
 )
 
-export default logo
+export default logo;

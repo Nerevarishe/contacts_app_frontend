@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 axios.defaults.baseURL = 'http://127.0.0.1:5000';
 
