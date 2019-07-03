@@ -6,47 +6,40 @@ import ShowContacts from '../../components/ShowContacts/ShowContacts';
 
 class ContactsApp extends Component {
     state = {
-        contacts: [],
-        showContactsUpdate: false
+        contacts: []
     };
 
     componentDidMount() {
         axios.get('/contacts')
-            .then(
-                response => {
-                    console.log(response)
-                    // console.log('GET to /users from CDM');
-                    this.setState({contacts: response.data});
-                }
-            );
+            .then(response => {
+                console.log(response);
+                this.setState({contacts: response.data});
+            })
+            .catch(error => console.log(error));
     };
-
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.showContactsUpdate !== this.state.showContactsUpdate) {
-            axios.get('/contacts')
-                .then(
-                    response => {
-                        // console.log(response)
-                        console.log('GET to /users from CDUP');
-                        this.setState({
-                            contacts: response.data,
-                            showContactsUpdate: false
-                        });
-                    }
-                );
-        }
-    }
 
     updateShowContactsHandler = () => {
-        this.setState({showContactsUpdate: true})
+        axios.get('/contacts')
+            .then(response => {
+                    // console.log(response)
+                    console.log('GET to /users from CDUP');
+                    this.setState({contacts: response.data});
+                }
+            ).catch(error => console.log(error))
     };
 
-    editContactHandler = () => {
-        alert('Edit button clicked!')
+    editContactHandler = (contactId) => {
+        alert('Edit button clicked!\nContact id: ' + contactId)
     };
 
-    deleteContactHandler = () => {
-        alert('Delete button clicked!')
+    deleteContactHandler = (contactId) => {
+        // alert('Delete button clicked! ' + contactId);
+        axios.delete('/contacts/' + contactId)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => console.log(error))
+            .then( () => this.updateShowContactsHandler())
     };
 
     render() {

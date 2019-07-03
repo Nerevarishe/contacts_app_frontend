@@ -17,15 +17,14 @@ class AddContact extends Component {
         axios.post('/contacts', contact)
             .then(response => {
                 console.log(response);
-            }).then(
-                this.props.updateShowContacts()
-        )
+            }).catch(error => console.log(error))
+            .then(this.props.updateShowContacts);
     };
 
     render() {
         return (
-            <div>
-                <form className='form-inline' action="/">
+            <div className='row' style={{textAlign: 'center'}}>
+                <div className='col form-inline'>
                     <input
                         className='form-control'
                         onChange={(event) => this.setState({fullName: event.target.value})}
@@ -45,7 +44,7 @@ class AddContact extends Component {
                         placeholder="E-mail"
                     />
                     <button className='btn btn-primary' onClick={this.addContactHandler}>Add Contact</button>
-                </form>
+                </div>
             </div>
         );
     }

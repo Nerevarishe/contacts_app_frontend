@@ -1,12 +1,3 @@
-.NavigationBar {
-    display: inline;
-}
-
-.NavigationBar ul li {
-    margin: 12px;
-    display: inline;
-}
-
-.NavigationBar img {
-    width: 10%;
+.Logo {
+    width: auto;
 }
