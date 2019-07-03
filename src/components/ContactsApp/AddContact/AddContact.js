@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import axios from "axios/index";
+import axios from "axios";
 
 class AddContact extends Component {
     state = {
@@ -23,27 +23,35 @@ class AddContact extends Component {
 
     render() {
         return (
-            <div className='row' style={{textAlign: 'center'}}>
-                <div className='col form-inline'>
-                    <input
-                        className='form-control'
-                        onChange={(event) => this.setState({fullName: event.target.value})}
-                        type="text"
-                        placeholder="Full Name"
-                    />
-                    <input
-                        className='form-control'
-                        onChange={(event) => this.setState({phone: event.target.value})}
-                        type="text"
-                        placeholder="Phone"
-                    />
-                    <input
-                        className='form-control'
-                        onChange={(event) => this.setState({email: event.target.value})}
-                        type="text"
-                        placeholder="E-mail"
-                    />
-                    <button className='btn btn-primary' onClick={this.addContactHandler}>Add Contact</button>
+            <div className='container'>
+                <div className='form-row p-3'>
+                    <div className='col'>
+                        <input
+                            className='form-control'
+                            onChange={(event) => this.setState({fullName: event.target.value})}
+                            type="text"
+                            placeholder="Full Name"
+                        />
+                    </div>
+                    <div className='col'>
+                        <input
+                            className='form-control'
+                            onChange={(event) => this.setState({phone: event.target.value})}
+                            type="text"
+                            placeholder="Phone"
+                        />
+                    </div>
+                    <div className='col'>
+                        <input
+                            className='form-control'
+                            onChange={(event) => this.setState({email: event.target.value})}
+                            type="text"
+                            placeholder="E-mail"
+                        />
+                    </div>
+                    <div className='col'>
+                        <button className='btn btn-primary' onClick={this.addContactHandler}>Add Contact</button>
+                    </div>
                 </div>
             </div>
         );
