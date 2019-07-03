@@ -1,5 +1,4 @@
 import React from 'react';
-// import axios from 'axios';
 import ShowContactsHeader from './ShowContactsHeader/ShowContactsHeader';
 import OptionsButtons from '../OptionsButtons/OptionsButtons';
 

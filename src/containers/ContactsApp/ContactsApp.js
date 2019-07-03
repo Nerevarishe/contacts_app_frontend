@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-import AddContact from '../../components/AddContact/AddContact';
-import ShowContacts from '../../components/ShowContacts/ShowContacts';
+import AddContact from '../../components/ContactsApp/AddContact/AddContact';
+import ShowContacts from '../../components/ContactsApp/ShowContacts/ShowContacts';
 
 import Modal from '../../UI/Modal/Modal.js';
-import ConfirmOnDeleteContact from '../../components/ConfirmOnDeleteContact/ConfirmOnDeleteContact';
+import ConfirmOnDeleteContact from '../../components/ContactsApp/ConfirmOnDeleteContact/ConfirmOnDeleteContact';
 
 class ContactsApp extends Component {
     state = {
