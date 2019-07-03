@@ -11,7 +11,8 @@ class ContactsApp extends Component {
     state = {
         contacts: [],
         showModal: false,
-        contactToDelete: null
+        contactToDeleteId: null,
+        contactSelectedName: null
     };
 
     componentDidMount() {
@@ -39,7 +40,7 @@ class ContactsApp extends Component {
 
     deleteContactHandler = () => {
         // alert('Delete button clicked!\nContact id: ' + contactId);
-        axios.delete('/contacts/' + this.state.contactToDelete)
+        axios.delete('/contacts/' + this.state.contactToDeleteId)
             .then(response => {
                 console.log(response);
             })
@@ -51,33 +52,38 @@ class ContactsApp extends Component {
 
     };
 
-    deleteContactModalHandler = (contactId) => {
+    deleteContactModalHandler = (contactId, contactName) => {
         this.setState({
-                contactToDelete: contactId,
-                showModal: true
-            });
-        this.setState({});
+            contactToDeleteId: contactId,
+            contactSelectedName: contactName,
+            showModal: true
+        });
     };
 
     deleteContactCanceledHandler = () => {
         this.setState({
-            contactToDelete: null,
+            contactToDeleteId: null,
+            contactSelectedName: null,
             showModal: false
-        })
+        });
     };
 
     render() {
         return (
             <React.Fragment>
                 <Modal show={this.state.showModal} modalClose={this.state.showModal}>
-                    <ConfirmOnDeleteContact deleteConfirmed={this.deleteContactHandler} deleteCanceled={this.deleteContactCanceledHandler}/>
+                    <ConfirmOnDeleteContact
+                        deleteConfirmed={this.deleteContactHandler}
+                        deleteCanceled={this.deleteContactCanceledHandler}
+                        contactNameToDelete={this.state.contactSelectedName}
+                    />
                 </Modal>
                 <AddContact updateShowContacts={this.updateShowContactsHandler}/>
                 <ShowContacts
                     contacts={this.state.contacts}
                     editContact={this.editContactHandler}
-                    // deleteContact={this.deleteContactHandler}
                     deleteContactModal={this.deleteContactModalHandler}
+
                 />
             </React.Fragment>
         );
