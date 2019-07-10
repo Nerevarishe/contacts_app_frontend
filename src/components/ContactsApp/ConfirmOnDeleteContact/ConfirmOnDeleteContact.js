@@ -1,7 +1,6 @@
 import React from 'react';
 
 const confirmOnDeleteContact = (props) => {
-
     return (
         <React.Fragment>
             <p>Delete this contact?</p>

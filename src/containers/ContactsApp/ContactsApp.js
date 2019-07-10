@@ -6,19 +6,26 @@ import ShowContacts from '../../components/ContactsApp/ShowContacts/ShowContacts
 
 import Modal from '../../UI/Modal/Modal.js';
 import ConfirmOnDeleteContact from '../../components/ContactsApp/ConfirmOnDeleteContact/ConfirmOnDeleteContact';
+import EditContact from '../../components/ContactsApp/EditContact/EditContact';
 
 class ContactsApp extends Component {
     state = {
         contacts: [],
-        showModal: false,
+
+        showDeleteModal: false,
         contactToDeleteId: null,
-        contactSelectedName: null
+        contactToDeleteName: null,
+
+        showEditModal: false,
+        editContactId: null,
+        editContactFullName: null,
+        editContactPhone: null,
+        editContactEmail: null
     };
 
     componentDidMount() {
         axios.get('/contacts')
             .then(response => {
-                console.log(response);
                 this.setState({contacts: response.data});
             })
             .catch(error => console.log(error));
@@ -27,15 +34,44 @@ class ContactsApp extends Component {
     updateShowContactsHandler = () => {
         axios.get('/contacts')
             .then(response => {
-                    // console.log(response)
-                    console.log('GET to /users from CDUP');
                     this.setState({contacts: response.data});
                 }
             ).catch(error => console.log(error))
     };
 
-    editContactHandler = (contactId) => {
-        alert('Edit button clicked!\nContact id: ' + contactId)
+    editContactHandler = (contactId, contactFullName, contactPhone, contactEmail) => {
+        this.setState({
+            editContactId: contactId,
+            editContactFullName: contactFullName,
+            editContactPhone: contactPhone,
+            editContactEmail: contactEmail,
+            showEditModal: true
+        })
+    };
+
+    confirmEditContactHandler = (id, fullName, phone, email) => {
+        const contact = {
+            fullName: fullName,
+            phone: phone,
+            email: email
+        };
+        axios.put('/contacts/' + id, contact)
+            .then(response => {
+                    console.log(response);
+                    this.setState({showEditModal: false});
+                    this.updateShowContactsHandler()
+                }
+            ).catch(error => console.log(error))
+    };
+
+    editContactCancelHandler = () => {
+        this.setState({
+            editContactId: null,
+            editContactFullName: null,
+            editContactPhone: null,
+            editContactEmail: null,
+            showEditModal: false
+        })
     };
 
     deleteContactHandler = () => {
@@ -46,7 +82,7 @@ class ContactsApp extends Component {
             })
             .catch(error => console.log(error))
             .then( () => {
-                this.setState({showModal: false});
+                this.setState({showDeleteModal: false});
                 this.updateShowContactsHandler();
             })
 
@@ -55,29 +91,49 @@ class ContactsApp extends Component {
     deleteContactModalHandler = (contactId, contactName) => {
         this.setState({
             contactToDeleteId: contactId,
-            contactSelectedName: contactName,
-            showModal: true
+            contactToDeleteName: contactName,
+            showDeleteModal: true
         });
     };
 
     deleteContactCanceledHandler = () => {
         this.setState({
             contactToDeleteId: null,
-            contactSelectedName: null,
-            showModal: false
+            contactToDeleteName: null,
+            showDeleteModal: false
         });
     };
 
     render() {
         return (
             <React.Fragment>
-                <Modal show={this.state.showModal} modalClose={this.state.showModal}>
-                    <ConfirmOnDeleteContact
-                        deleteConfirmed={this.deleteContactHandler}
-                        deleteCanceled={this.deleteContactCanceledHandler}
-                        contactNameToDelete={this.state.contactSelectedName}
-                    />
-                </Modal>
+                 {/*
+                 TODO: Refactor Modal logic to one component with changing children content
+                 */}
+                {
+                    this.state.showEditModal ?
+                        <Modal show={this.state.showEditModal} modalClose={this.state.showEditModal}>
+                            <EditContact confirmEditContact={this.confirmEditContactHandler}
+                                         cancelEditContact={this.editContactCancelHandler}
+                                         editContactId={this.state.editContactId}
+                                         editContactFullName={this.state.editContactFullName}
+                                         editContactPhone={this.state.editContactPhone}
+                                         editContactEmail={this.state.editContactEmail}
+                            />
+                        </Modal> :
+                        null
+                }
+                {
+                    this.state.showDeleteModal ?
+                        <Modal show={this.state.showDeleteModal} modalClose={this.state.showDeleteModal}>
+                            <ConfirmOnDeleteContact
+                                deleteConfirmed={this.deleteContactHandler}
+                                deleteCanceled={this.deleteContactCanceledHandler}
+                                contactNameToDelete={this.state.contactToDeleteName}
+                            />
+                        </Modal> :
+                        null
+                }
                 <AddContact updateShowContacts={this.updateShowContactsHandler}/>
                 <ShowContacts
                     contacts={this.state.contacts}

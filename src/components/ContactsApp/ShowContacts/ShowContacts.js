@@ -13,7 +13,7 @@ const showContacts = (props) => {
                         <td>{contact.email}</td>
                         <td>
                             <OptionsButtons
-                                buttonEditClicked={ () => props.editContact(contact.id)}
+                                buttonEditClicked={ () => props.editContact(contact.id, contact.fullName, contact.phone, contact.email)}
                                 buttonDeleteClicked={() => props.deleteContactModal(contact.id, contact.fullName)}
                             />
                         </td>

@@ -16,7 +16,6 @@ class AddContact extends Component {
         };
         axios.post('/contacts', contact)
             .then(response => {
-                console.log(response);
             }).catch(error => console.log(error))
             .then(this.props.updateShowContacts);
     };
