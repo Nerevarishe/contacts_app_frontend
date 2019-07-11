@@ -57,7 +57,6 @@ class ContactsApp extends Component {
         };
         axios.put('/contacts/' + id, contact)
             .then(response => {
-                    console.log(response);
                     this.setState({showEditModal: false});
                     this.updateShowContactsHandler()
                 }
